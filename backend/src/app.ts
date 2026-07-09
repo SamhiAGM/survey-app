@@ -9,6 +9,8 @@ import rateLimit from 'express-rate-limit';
 import logger from './utils/logger';
 import authRoutes from './routes/auth.routes';
 import surveyRoutes from './routes/survey.routes';
+import facilityRoutes from './routes/facility.routes';
+import settingsRoutes from './routes/settings.routes';
 
 const app: Application = express();
 
@@ -46,6 +48,8 @@ app.get('/api/v1/health', (req: Request, res: Response) => {
 // Mount Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/surveys', surveyRoutes);
+app.use('/api/v1/facilities', facilityRoutes);
+app.use('/api/v1/settings', settingsRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response, next: NextFunction) => {
