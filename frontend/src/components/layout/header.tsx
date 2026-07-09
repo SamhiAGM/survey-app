@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -24,9 +25,10 @@ export function Header() {
     router.push("/login")
   }
 
+  const fullName = user?.name || ((user as any)?.firstName && (user as any)?.lastName ? `${(user as any).firstName} ${(user as any).lastName}` : '');
   // Get initials for avatar fallback
-  const initials = user?.name 
-    ? user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()
+  const initials = fullName 
+    ? fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()
     : 'U'
 
   const roleName = (user?.role as any)?.name || user?.role || 'User'
@@ -58,22 +60,24 @@ export function Header() {
         <DropdownMenu>
           <DropdownMenuTrigger className="relative flex h-9 w-9 items-center justify-center rounded-full ml-2 hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
               <Avatar className="h-9 w-9 border">
-                <AvatarImage src="" alt={user?.name || "User"} />
+                <AvatarImage src="" alt={fullName || "User"} />
                 <AvatarFallback className="bg-primary/10 text-primary font-medium">{initials}</AvatarFallback>
               </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end">
-            <DropdownMenuLabel className="font-normal">
-              <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">{user?.name}</p>
-                <p className="text-xs leading-none text-muted-foreground">
-                  {user?.email}
-                </p>
-                <p className="text-[10px] uppercase tracking-wider font-semibold text-primary mt-1">
-                  {roleName}
-                </p>
-              </div>
-            </DropdownMenuLabel>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="font-normal">
+                <div className="flex flex-col space-y-1">
+                  <p className="text-sm font-medium leading-none">{fullName || 'User'}</p>
+                  <p className="text-xs leading-none text-muted-foreground">
+                    {user?.email}
+                  </p>
+                  <p className="text-[10px] uppercase tracking-wider font-semibold text-primary mt-1">
+                    {roleName}
+                  </p>
+                </div>
+              </DropdownMenuLabel>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => router.push("/dashboard/settings")}>
               Profile Settings

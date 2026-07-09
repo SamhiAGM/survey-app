@@ -20,7 +20,7 @@ export const getDatabaseStats = async (req: Request, res: Response) => {
     // We can also fetch some basic counts for the UI dashboard
     const collections = await db.listCollections().toArray();
     const collectionStats = await Promise.all(collections.map(async (c) => {
-      const collStats = await db.collection(c.name).stats();
+      const collStats = await db.command({ collStats: c.name });
       return {
         name: c.name,
         count: collStats.count,

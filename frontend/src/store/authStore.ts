@@ -2,7 +2,9 @@ import { create } from 'zustand';
 
 interface User {
   id: string;
-  name: string;
+  name?: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   role: string;
 }
@@ -17,6 +19,11 @@ interface AuthState {
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
-  setUser: (user) => set({ user, isAuthenticated: !!user }),
+  setUser: (user) => {
+    if (user && !user.name && user.firstName && user.lastName) {
+      user.name = `${user.firstName} ${user.lastName}`;
+    }
+    set({ user, isAuthenticated: !!user });
+  },
   logout: () => set({ user: null, isAuthenticated: false }),
 }));

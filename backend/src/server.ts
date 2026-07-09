@@ -17,6 +17,8 @@ const server = app.listen(PORT, () => {
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err: any, promise) => {
   logger.error(`Error: ${err.message}`);
-  // Close server & exit process
-  server.close(() => process.exit(1));
+  // In development, we might not want to exit immediately to see the logs
+  if (process.env.NODE_ENV === 'production') {
+    server.close(() => process.exit(1));
+  }
 });
