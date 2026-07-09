@@ -1,0 +1,2 @@
+{"level":"error","message":"Error: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017","service":"field-supervision-api","timestamp":"2026-07-09 17:26:01"}
+{"level":"error","message":"Error: connect ECONNREFUSED ::1:27017, connect ECONNREFUSED 127.0.0.1:27017","service":"field-supervision-api","timestamp":"2026-07-09 17:40:05"}
